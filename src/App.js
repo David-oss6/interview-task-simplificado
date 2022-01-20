@@ -1,30 +1,30 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 import './Styles/App.css';
-import trCss from './Styles/tr.css'
+
 
 function App() {
   const [initialData, setInitialData] = useState()
   const [toPrint, setToPrint] = useState(null)
+  
+  const [count, setCount] = useState(0)
+  const [colored, setColored] = useState(false)
+
   const [requestStatus, setRequestStatus] = useState({
-    LOADING: false,
+    LOADING: true,
     ERROR: false,
     SUCCESS: false
   }) 
-  const [count, setCount] = useState(0)
-  const [colored, setColored] = useState(true)
-useEffect(() => {
-  setRequestStatus({
-    ...requestStatus,
-    LOADING: true
-  })
+useEffect(() => {  
+  
  const fetchData= async () =>{   
    try {
      const data = await axios('https://randomuser.me/api/?results=100')
      data && setRequestStatus({
     ...requestStatus,
     LOADING: false,
-    SUCCESS: true
+    SUCCESS: true,
+    ERROR: false
   })
      setInitialData(data.data.results) 
       
@@ -43,9 +43,9 @@ useEffect(()=>{
 setToPrint(initialData)
 },[initialData])
 
-useEffect(()=>{
-  setToPrint(toPrint)  
-}, [colored])
+// useEffect(()=>{
+//   setToPrint(toPrint)  
+// }, [colored])
 
 
 const sortCountry = ()=>{  
@@ -110,7 +110,7 @@ const removeUser =(user)=>{
                 (toPrint&&colored) &&   toPrint.map((user)=>{                                   
                 let color;   
                 if(toPrint.indexOf(user) %2 === 0 ){color = "green"} else{color= "orange"}  
-                console.log("colored true", colored, color)                              
+                                              
                  return <tr className={color}  key={user.cell} >
              <td><img src={user.picture.thumbnail} alt={user.name.first}/></td>
             <td>{user.name.first}</td>
@@ -123,7 +123,7 @@ const removeUser =(user)=>{
             {
             
                (toPrint&& !colored) && toPrint.map((user)=>{                
-                    console.log("colored false", colored)                                          
+                                                            
                  return <tr className={"tableRow"}  key={user.cell} >
              <td><img src={user.picture.thumbnail} alt={user.name.first}/></td>
             <td>{user.name.first}</td>
