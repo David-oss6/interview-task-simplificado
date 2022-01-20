@@ -1,0 +1,33 @@
+.cabecera {
+  display: flex;
+  align-items: center;
+  flex-flow: column nowrap;
+  margin-bottom: 10px;
+}
+.container {
+  width: 100%;
+  padding: 1%;
+}
+
+.tableRow {
+}
+.tableRow:hover {
+  background-color: red;
+}
+td {
+  text-align: center;
+}
+.green {
+  background-color: green;
+}
+
+.orange {
+  background-color: orange;
+}
+.green:hover {
+  background-color: lightgray;
+}
+
+.orange:hover {
+  background-color: lightgray;
+}
